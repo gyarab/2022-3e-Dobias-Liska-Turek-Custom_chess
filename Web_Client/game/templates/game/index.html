@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "./base.html" %}
+{% block title %}CustomChess{% endblock %}
+
+<body>
+    {% block body_content %}
+    {% if not signin %}
+    <form id='form' class="w-75" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 class=" mt-2">Přihlásit se </h2>
+        <div class="form-group mt-2">
+            <label for="id_username">Uživatelské jmeno</label>
+            <input class="form-control" id="id_username" name="username">
+        </div>
+        <div class="form-group mt-2">
+            <label for="id_password">Heslo</label>
+            <input type="password" class="form-control" id="id_password" name="password">
+        </div>
+        <button class="form-control mb-3 mt-2 bg-success border-success text-white" type="submit">Přihlásit</button>
+    </form>
+    {% else %}
+    <div>
+        <h2 class=" mt-2">Vítejte</h2>
+        <div>
+            <a class="form-control mb-3 mt-2 bg-success border-success text-white btn btn-primary" href={%url 'join_game' %} id="submit-join">Připojit se k hře</a>
+        </div>
+        <div>
+            <a class="form-control mb-3 mt-2 bg-success border-success text-white btn btn-primary" href={%url 'create_game' %} id="submit-join">Vytvořit novou hru</a>
+        </div>
+    </div>
+    {% endif %}
+    {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+{%extends "./base.html"%}
+{%block head%}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.css"
+    integrity="sha512-C4k/QrN4udgZnXStNFS5osxdhVECWyhMsK1pnlk+LkC7yJGCqoYxW4mH3/ZXLweODyzolwdWSqmmadudSHMRLA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"
+    integrity="sha512-6lplKUSl86rUVprDIjiW8DuOniNX8UDoRATqZSds/7t6zCQZfaCe3e5zcGaQwxa8Kpn5RTM9Fvl3X2lLV4grPQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{%load static%}
+<script src="{% static 'game/signup.js' %}"></script>
+{%endblock%}
+
+<body{%block body_atributes%} onresize="resizeForm()"{%endblock%}>
+    {%block body_content%}
+    <form id='form' class="w-75 " method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h2 class=" mt-2">Zaregistrovat se</h2>
+    <div class="form-group mt-2">
+        <label for="username-input">Uživatelské jmeno</label>
+        <input class="form-control" id="username-input" name="username">
+    </div>
+    <div class="form-group mt-2">
+        <label for="password-input">Heslo</label>
+        <input type="password" class="form-control" id="password-input" name="password">
+    </div>
+    <div class="form-group mt-2">
+        <label for="password-confirmation-input">Heslo</label>
+        <input type="password" class="form-control" id="password-confirmation-input" name="password_confirmation">
+    </div>
+    <div class="form-group">
+        <label for="email-input">Email</label>
+        <input class="form-control" id="email-input" name="email">
+    </div>
+    <div class="form-group mt-2">
+        <label for="pro">Profilový obrázek</label>
+        <input type="file" class="form-control" id="image-input" name="image"  onchange="changeDisplayedImage()">
+    </div>
+   
+    <div id="cropper-container" class="form-group mt-2 rounded" >
+        <img id="cropper-image"  style=" max-width: 100%;" >
+    </div>    
+    <div class="form-group">
+        <button id="button" class="form-control mb-3 mt-2 bg-success border-success btn btn-primary text-white" type="button" onclick=" makeSignUpRequest()" 
+        >Registrovat</button>
+    </div> 
+    <p id="error-log" class="small text-danger  align-text-center">{{msg}}</p>
+</form>  
+    {%endblock%}
+    {% block profile_visibility%}{%endblock%}
+
+</body>
+
+
+</html>

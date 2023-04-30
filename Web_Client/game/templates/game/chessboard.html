@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+{%extends './base.html'%}
+
+<head>
+    {%block head%}
+    {%load static%}
+    <link href="{% static 'game/style.css' %}" rel="stylesheet">
+    <script src="{% static 'game/chessboard.js' %}"></script>
+    <script>setPath("{% static 'temp' %}")</script>
+    {%endblock%}
+
+</head>
+
+<body {%block body_atributes%}onresize="drawCanvas()" {%endblock%}>
+    {%block body%}
+    <script>
+        initializ({{ height }}, { { width } }, { { figures | safe } }, {{ tags| safe}},{{figures_map| safe}});       
+        $(document).ready(function () {
+            drawCanvas();       
+            openWebSocketConnection();       
+       });     
+    </script>
+    <div class="container-fluid main_container d-flex ">
+        <div class=" row flex-fill align-items-top justify-content-top" style="height: calc(100vh - 80px);">
+            <div id="column-1" class="col-sm-10 no-gutters d-flex align-top">
+                <div id="chessboard" class="w-100 justify-content-center mt-2 d-flex align-items-top"
+                    style="position: relative;">
+                    <canvas id="canvas-background" class="rounded" style="position: absolute; z-index: 0"></canvas>
+                    <canvas id="canvas-figures" style="position: absolute; z-index: 1"></canvas>
+                    <canvas id="canvas-tags" style="position: absolute; z-index: 2"></canvas>
+                    <canvas id="canvas-moves" style="position: absolute; z-index: 3"></canvas>
+                    <canvas id="canvas-animations" style="position: absolute; z-index: 4"
+                        onclick="handleClickCanvas(event)"></canvas>
+                </div>
+            </div>
+            <div class="col-sm-2 no-gutters d-flex flex-column  mx-0" id="display">
+                <div id="container-top" class="mt-2 ">
+                    <div id="list-players">
+                        <template id="player-card-template">
+                            <div class="w-100 mt-2 d-flex align-items-center bg-dark rounded border border-light">
+                                <img class="  rounded me-2 mt-1 ms-1 mb-1 d-flex align-items-center selectDisable "  style="height: 40px; width: 40px;">
+                                <label class=" ms-auto me-2 selectDisable nameLabel"></label>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <div id="container-bottom" class="mt-auto mb-2 d-flex flex-column h-50 mb-0 ">
+                    <div id="selector-toggle" class="mt-2 overflow-auto rounded border border-light h-50 bg-dark"
+                        style="max-height: 50%; height:31%">
+                        <h3 class="selectDisable">Výběr přepisu-zobrazení</h3>
+                        <template id="selector-item-template">
+                            <div class="bg-dark selectDisable border-top border-bottom border-light text-light"
+                                style="cursor: pointer;" onclick="console.log('UwU')"></div>
+                        </template>
+
+                    </div>
+                    <div id="selector-transcript"
+                        class="mt-2 w-100 overflow-auto rounded border border-light h-50 bg-dark"
+                        style="max-height: 50%; height:31%">
+                        <h3 class="selectDisable">Výběr přepisu-pohyb</h3>
+
+
+                    </div>
+                    <div id="legend-tags" class="mt-2 overflow-auto rounded border border-light h-50 bg-dark"
+                        style="max-height: 50%; height:31%">
+                        <h3 class="selectDisable">Legenda tagů</h3>
+                        <template id="tag-entry-template">
+                            <div class="selectDisable bg-dark pe-1 d-flex align-items-center border-top border-bottom border-light text-light"
+                                style="cursor: pointer;" onclick="console.log('UwU')">
+                                <div class="rounded ms-1 me-1" style="width: 20px;height: 20px;"></div>
+                                <label class=" ms-auto me-2 selectDisable nameLabel"></label>
+                            </div>
+                        </template>
+                       
+                    </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    {%endblock%}
+</body>
+
+</html>
