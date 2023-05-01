@@ -32,7 +32,7 @@ let counter = 0;
 
 for (let i = 0; i < 12; i++) {
   piecesImages[i] = new Image();
-  piecesImages[i].src = "{% static 'game/temp/chessPieces/" + i + ".jpg' %}";
+  piecesImages[i].src = "{% static 'game/temp/chessPieces/" + i + ".png' %}";
 }
 
 /*
