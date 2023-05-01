@@ -52,7 +52,22 @@ Následující práce pojednává o vývoji aplikace, jejímž cílem je umožni
 Aplikace je založené na architektuře klient-server a skládá se tedy ze dvou částí. Serverové částí, která je napsaná v programovacím jazyku Java s využitím řady knihoven, kterým se budeme více věnovat později. A klientské části, kterou je v tomto případě webová aplikace, jejíž back-endová část je napsaná v jazyce Python s využitím frameworku Django, její front-endová část využívá CSS frameworku Bootstrap pro snazší práci s kaskádovými styly a JavaScriptové knihovny JQuery. Z tohoto důvodu bude tedy následující text rozdělen na dvě hlavní částy a to tedy na část pojednávající o serverové části aplikace a část pojednávající o klientské části aplikace.
 \addcontentsline{toc}{section}{Úvod}
 \newpage
-\section{Tvorba vlastních pravidel hry šachy}
+\section{Tvorba vlastního pole a pravidel}
+Tato kapitola pojednává o části aplikace, která má za úkol tvorbu vlastního herního pole a vlastních pravidel.
+\subsection{Použité technologie}
+Následující kapitola poskytuje výčet technologií, které byly použity pro tvorbu vlastního herního pole a vlastních pravidel. V kapitole je také zmíněno, jak byly technologie použity.
+\subsubsection{Forsyth–Edwards Notation}
+Forsyth–Edwards Notation je způsob zapisování rozmístění figur na poli. Takto jsou zapisována také speciální či nepřístupná pole, která mají stejně jako každá figura přiřazený svůj speciální znak. Zápis pozic figur a speciálních polí je tedy jeden objekt.\cite{Forsyth–Edwards Notation}
+\subsubsection{Parlett's movement notation}
+Parlett's movement notation je způsob zapisování možných tahů figur. Každý typ tahu má svůj znak a číslo. Znak reprezentuje směr pohybu figury a číslo reprezentuje počet polí, o který se figur při pohybu posune.\cite{Parlett's movement notation}
+\subsubsection{Bootstrap}
+Bootstrap je framework, který nabízí mnoho již před vytvořených komponent pro snadné a rychlé, ale v porovnání s konkurencí zároveň poměrně špatně přizpůsobitelné, navrhování designu webových aplikací\cite{bootstrap}.
+\subsection{Tvorba vlastního pole}
+Tvorba vlastního pole probíhá na poli, které reprezentuje šachové herní pole. Nejprve je třeba zvolit si výšku a šířku pole. Program poté vygeneruje pole podle zadaných hodnot. Uživatel poté polím přiřadí jejich funkci, nebo na ně umístí figuru. Pole, která uživatel nijak neoznačí, sjou stejně jako pole pod figurami herní pole bez speciálních efektů. Po dokončení tvorby pole program pozice figur a polí zapíše za pomoci FEN\cite{Forsyth–Edwards Notation} a odešle do databáze.
+\subsubsection{Speciální pole}
+Momentálně jsou v programu dva typy speciálních polí. Jeden z nich značí pole, které je během hry zcela nepřístupné a druhý značí pole, které hráč smí opustit až poté, co hraje odehraje tah jinou figurou.
+\subsection{Tvorba vlastních pravidel}
+Tvorba vlastních pravidel probíhá také na poli reprezentující šachové herní pole. Uživatel si vybere figuru, pro kterou chce pravidla vytvářet a ta se umístí do středu pole. Uživatel poté jen označuje pole přístupná figuře během tahu. Po dokončení tvorby pravidel program pravidla zapíše pomocí PMN\cite{Parlett's movement notation} a znovu odešle do databáze.
 \newpage
 \section{Server}
 Následující kapitola pojednává o serverové části aplikace, tedy o její struktuře, technologiích použitých pro její vývoj, řešení některých klíčových problémů řešených v této části aplikace a také o komunikačním protokolu sloužícímu pro komunikaci mezi serverem a klientem.
