@@ -11,6 +11,7 @@ public class MoveInterpreter {
     int stepA, stepB, start, end;
 
     HashMap<String, HashSet<int[]>> stm; //přístup mají i gVM od rekurzivně vytvářených MI, viz memorize()
+    HashMap<String, HashSet<String>> stms;
     Set<int[]> dirs;
 
     public HashSet<int[]> getValidMoves(String s, int x, int y, Piece p){
@@ -124,11 +125,15 @@ public class MoveInterpreter {
                     System.out.println("i = " + i);
                     Iterator itr = new Iterator(p, s, c, ch(s, i), this, x, y);
                     validMoves.addAll(itr.gimmeSet());//ale ja nechci AbstractCollection.add ale Set.add
+                    System.out.println("postIrer: " + validMoves.toString());
+                    //memorize(key(x,y,s), validMoves);
+                    int dot = s.indexOf('.');
+                    if(dot != -1) i = dot;
                 }
             }
 
             if(ch(s, i) == '(' || ch(s, i) ==')'){i++; continues = true;}
-
+            System.out.println(ch(s,i));
             if(ch(s, i) == '.'){
                 //HashSet<int[]> hs = new HashSet<>(validMoves.size()*8);
                 String newS = s.substring(++i);
@@ -137,7 +142,11 @@ public class MoveInterpreter {
                 for (int[] js : validMoves) {
                     MoveInterpreter mi = new MoveInterpreter(this);
                     //memorize(js[0] + js[1] + newS, 
-                    mi.getValidMoves(newS, js[0], js[1], p);
+                    memorize(key(js[0], js[1], newS), mi.getValidMoves(newS, js[0], js[1], p));;
+                    /*for (HashSet<int[]> hs : mi.stm.values()) {
+                        memorize(key(js[0], js[1], newS), hs);
+                    }
+                    */
                 }
             }
 
@@ -149,14 +158,15 @@ public class MoveInterpreter {
         memorize(key(x,y,s), validMoves);
         System.out.println("gVMend");
 
-        if(olderMI == null) return remember(key(x, y, s));
-        else return null;
+        //if(olderMI == null){
+        return remember(key(x, y, s));
+        //}else return null;
 
         //return validMoves;
     }
 
     public static String key(int x, int y, String s) {
-        String keyS = x + "," + "_" + s;
+        String keyS = x + "," + y + "_" + s;
         return keyS;
     }
 
@@ -170,7 +180,16 @@ public class MoveInterpreter {
 
     private void memorize(String s, HashSet<int[]> hs){
         if (olderMI != null) olderMI.memorize(s, hs);
-        else this.stm.put(s, hs);
+        else {
+            HashSet<String> hs2 = new HashSet<>();
+            for (int[] its : hs) {
+                String str = "" + (s.contains(".") ? -its[0] : its[0]) + "," + its[1];
+                hs2.add(str);
+            }
+            this.stm.put(s, hs);
+            this.stms.put(s, hs2);
+        }
+
     }
 
     public void forget() { //only the oldest
@@ -192,6 +211,7 @@ public class MoveInterpreter {
         }
         else{
             this.stm = new HashMap<String, HashSet<int[]>>();
+            this.stms = new HashMap<String, HashSet<String>>();
         }
     }
 
@@ -199,5 +219,3 @@ public class MoveInterpreter {
         this.board = board;
     }
 }
-
-

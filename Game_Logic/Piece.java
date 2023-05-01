@@ -31,6 +31,12 @@ public class Piece {
         
         counters.put("moved", 0);
         this.moves = moves;
+
+        String[] ss = new String[moves.length];
+        this.moveNames = ss;
+        for (int i = 0; i < moves.length; i++) {
+            moveNames[i] = "movename" + i;
+        }
         /*
         this.conditions = conditions;
         this.execute = execute;
