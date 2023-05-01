@@ -179,8 +179,13 @@ public class Iterator {
                     mi.board.gimme(x2, y2) != null 
                     && (x2!=p.x && y2!=p.y) 
                     && mi.board.gimme(x2, y2).team == p.team);
-                else set.add(new int[] {x2, y2});
+                else {
+                    // offer case to ConditionCommandInterpreter caci
+                    //if caci.immediate stop...
+                    //get caci.changed movement
+                    set.add(new int[] {x2, y2});
 
+                }
                 k++;
                 //x1 = x2; y1 = y2;  //posun akt policka o 1 krok
 

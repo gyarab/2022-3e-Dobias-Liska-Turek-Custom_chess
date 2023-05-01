@@ -50,7 +50,34 @@ public class Board {
         System.out.println(charBoard);
     }
 
-    public void showMoves(HashSet<int[]> hs){
+    public void updateBoard(String s){
+        //ConditionCommandInterpreter coci = new ConditionCommandInterpreter(this,);
+        Piece p;
+        String command;
+        int lastX, lastY, x, y;
+        String[] sarr = s.split("_", 0);
+
+        String[] sarr2 = sarr[0].split("[^0-9]", 2);
+        lastX = Integer.parseInt(sarr2[0]);
+        lastY = Integer.parseInt(sarr2[1]);
+        p = this.gimme(lastX, lastY);
+        x = p.x; y = p.y;
+
+        for (int i = 0; i < p.moveNames.length; i++) {
+            if(p.moveNames[i].equals(sarr[1])) command = p.execute[i];
+        }
+        for (int i = 2; i < sarr.length; i++) {
+            sarr2 = sarr[0].split("[^0-9]", 2);
+            x = Integer.parseInt(sarr2[0]);
+            y = Integer.parseInt(sarr2[1]);
+            //offer case to coci
+        }
+        this.squarr[lastX][lastY].occupant = null;
+        this.squarr[x][y].occupant = p;
+        
+    }
+
+    /*public void showMoves(HashSet<int[]> hs){
         String charBoard = "";
         for (int i = height - 1; i >= 0; i--) {
             for (int j = 0; j < width; j++) {
@@ -70,6 +97,7 @@ public class Board {
         }
         System.out.println(charBoard);
     }
+    */
 
     private void fillWithSquares(){
         for (int i = 0; i < height; i++) {

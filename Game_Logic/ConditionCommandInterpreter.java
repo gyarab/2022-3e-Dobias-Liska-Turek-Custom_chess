@@ -3,8 +3,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class ConditionCommandInterpreter{
+    Piece piece;
+    String s;
+    Board board;
+    HashMap<String, ArrayList<Entity>> etarr;
+    int ix, iy, nx, ny;
 
-    public Entity satisfy(String s, HashMap<String, ArrayList<Entity>> etarr, MoveInterpreter mi, Piece piece){
+    public Entity satisfy(){
         Entity forReturn;
         String currEntity;
 
@@ -40,12 +45,12 @@ public class ConditionCommandInterpreter{
                         ArrayList<Entity> arr = new ArrayList<>();
                         if(ch == 's') arr.add(new Entity<Piece>(piece));
                         if(ch == 'q')
-                            for (Square[] qar : mi.board.squarr) {
+                            for (Square[] qar : board.squarr) {
                                 for (Square q : qar) {
                                     arr.add(new Entity<Square>(q));
                                 }
                             }
-                        else for (Piece p : mi.board.piecist) {
+                        else for (Piece p : board.piecist) {
                             if(ch == 'p') arr.add(new Entity<Piece>(p));
                             //else if(ch == 's')arr.add(n);
                         }
@@ -64,5 +69,17 @@ public class ConditionCommandInterpreter{
         } 
 
         return new Entity<Boolean>(new Boolean(false));
+    }
+
+    public ConditionCommandInterpreter(Board board, Piece piece, String toSatisfy, int[] twoPositions){
+        this.board = board;
+        this.piece = piece;
+        this.s = toSatisfy;
+        this.ix = twoPositions[0];
+        this.iy = twoPositions[1];
+        this.nx = twoPositions[2];
+        this.ny = twoPositions[3];
+
+        //this.satisfy()
     }
 }
