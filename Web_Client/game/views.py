@@ -281,6 +281,13 @@ def initialize_game_information():  # for initializing game information on the s
         game_info["width"] = input[1]      
         update_game_information(input[2:5])
 
+@ensure_csrf_cookie
+def field(request):
+    return render(request, "game/fieldgeneration.html")
+
+@ensure_csrf_cookie
+def rules(request):
+    return render(request, "game/rulesgeneration.html")
 
 def update_game_information(
     input,
