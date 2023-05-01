@@ -28,17 +28,17 @@ let ArDownLeft = new Image();
 ArDownLeft.src = "{% static 'game/temp/arrows/arrowDownLeft.png' %}";
 
 let king = new Image();
-king.src = "{% static 'game/temp/chessPieces/0.jpg' %}";
+king.src = "{% static 'game/temp/chessPieces/0.png' %}";
 let queen = new Image();
-queen.src = "{% static 'game/temp/chessPieces/1.jpg' %}";
+queen.src = "{% static 'game/temp/chessPieces/1.png' %}";
 let rook = new Image();
-rook.src = "{% static 'game/temp/chessPieces/2.jpg' %}";
+rook.src = "{% static 'game/temp/chessPieces/2.png' %}";
 let bishop = new Image();
-bishop.src = "{% static 'game/temp/chessPieces/3.jpg' %}";
+bishop.src = "{% static 'game/temp/chessPieces/3.png' %}";
 let knight = new Image();
-knight.src = "{% static 'game/temp/chessPieces/4.jpg' %}";
+knight.src = "{% static 'game/temp/chessPieces/4.png' %}";
 let pawn = new Image();
-pawn.src = "{% static 'game/temp/chessPieces/5.jpg' %}";
+pawn.src = "{% static 'game/temp/chessPieces/5.png' %}";
 
 size = 11;
 
